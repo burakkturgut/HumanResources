@@ -1,0 +1,32 @@
+﻿@model List<Kullanici>
+
+<div>
+    <a asp-controller="Kullanici" asp-action="Ekle" class="btn btn-success">Kullanıcı Ekle</a>
+</div>
+
+<table class="table table-hover table-striped table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">#Id</th>
+            <th scope="col">Adı</th>
+            <th scope="col">Soyadı</th>
+            <th scope="col">şifre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.adi</td>
+                <td>@item.soyadi</td>
+                <td>@item.sifre</td>
+                <td>
+
+                    <a class="btn btn-warning" asp-controller="Kullanici" asp-action="Guncelle" asp-route-id="@item.id">Güncelle</a>
+                    <a class="btn btn-danger" asp-controller="Kullanici" asp-action="Sil" asp-route-id="@item.id">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

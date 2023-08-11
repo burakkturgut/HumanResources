@@ -1,0 +1,20 @@
+﻿@model Kullanici
+
+<form asp-controller="Kullanici" asp-action="Guncelle" method="post">
+    <input type="hidden" asp-for="id" />
+    <div class="mb-3">
+        <label class="form-label">Adı</label>
+        <input asp-for="adi" class="form-control" placeholder="ad..">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Soyadı</label>
+        <input asp-for="soyadi" class="form-control" placeholder="soyadı..">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Şifre</label>
+        <input asp-for="sifre" class="form-control" placeholder="şifre">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-success">Guncelle</button>
+    </div>
+</form>

@@ -1,0 +1,12 @@
+﻿@model kategori
+
+<form asp-controller="Kategori" asp-action="Guncelle" method="post">
+    <input type="hidden" asp-for="id" />
+    <div class="mb-3">
+        <label class="form-label">kategori adı</label>
+        <input asp-for="kategoriadi" class="form-control" placeholder="kategori adı">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-success">Guncelle</button>
+    </div>
+</form>

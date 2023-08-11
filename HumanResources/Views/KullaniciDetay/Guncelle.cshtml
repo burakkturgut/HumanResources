@@ -1,0 +1,20 @@
+﻿@model kullanicidetay
+
+<form asp-controller="KullaniciDetay" asp-action="Guncelle" method="post">
+    <input type="hidden" asp-for="id" />
+    <div class="mb-3">
+        <label class="form-label">Adres</label>
+        <input asp-for="adres" class="form-control" placeholder="adres..">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Tc</label>
+        <input asp-for="tc" class="form-control" placeholder="tc..">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Şehir</label>
+        <input asp-for="sehir" class="form-control" placeholder="sehir..">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-success">Guncelle</button>
+    </div>
+</form>

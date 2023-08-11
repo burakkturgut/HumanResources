@@ -1,0 +1,20 @@
+﻿@model kullanicidetay
+
+<form asp-controller="KullaniciDetay" asp-action="Ekle" method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Adresi</label>
+        <input asp-for="adres" class="form-control" placeholder="adres..">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Tc</label>
+        <input asp-for="tc" class="form-control" placeholder="...">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Hangi şehirde yaşıyor</label>
+        <input asp-for="sehir" class="form-control" placeholder="...">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-success">Kullanıcı Bilgisini Ekle</button>
+    </div>
+</form>

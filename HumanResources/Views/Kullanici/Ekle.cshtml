@@ -1,0 +1,19 @@
+﻿@model Kullanici
+
+<form asp-controller="Kullanici" asp-action="Ekle" method="post">
+    <div class="mb-3">
+        <label class="form-label">Adı</label>
+        <input asp-for="adi" class="form-control" placeholder="Adınız...">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Soyadı</label>
+        <input asp-for="soyadi" class="form-control" placeholder="Soyadınız..">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Şifre</label>
+        <input asp-for="sifre" class="form-control" placeholder="sifreniz...">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-success">Kullanıcı Ekle</button>
+    </div>
+</form>

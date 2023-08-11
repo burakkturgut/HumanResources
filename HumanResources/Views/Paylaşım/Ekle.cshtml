@@ -1,0 +1,19 @@
+﻿@model paylasim
+
+<form asp-controller="Paylaşım" asp-action="Ekle" method="post">
+    <div class="mb-3">
+        <label class="form-label">Başlık Adı</label>
+        <input asp-for="baslik" class="form-control" placeholder="Başlığınızı giriniz..">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">İçerik Adı</label>
+        <input asp-for="icerik" class="form-control" placeholder="İçeriğinizi giriniz..">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Oluşturma Tarihi</label>
+        <input asp-for="olusturmatarihi" class="form-control" placeholder="GG.AA.YY">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-success">İçeriği Ekle</button>
+    </div>
+</form>

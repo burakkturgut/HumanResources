@@ -1,0 +1,23 @@
+﻿@model paylasim
+
+<form asp-controller="Paylaşım" asp-action="Guncelle" method="post">
+    <input type="hidden" asp-for="id" />
+
+    
+    <div class="mb-3">
+        <label class="form-label">Başlık</label>
+        <input asp-for="baslik" class="form-control" placeholder="Yeni başlığınızı giriniz">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">içerik</label>
+        <input asp-for="icerik" class="form-control" placeholder="Yeni içeriğinizi giriniz">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Yeni Tarih</label>
+        <input asp-for="olusturmatarihi" class="form-control" placeholder="Yeni düzenleme tarihini giriniz">
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-success">Güncelle</button>
+    </div>
+</form>

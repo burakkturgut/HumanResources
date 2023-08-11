@@ -1,0 +1,37 @@
+﻿@model List<paylasim>
+
+<div>
+    <a asp-controller="Paylaşım" asp-action="Ekle" class="btn btn-success">Paylaşım Yap</a>
+</div>
+
+<table class="table table-hover">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th scope="col">#Id</th>
+            <th scope="col">Kullanıcı Id</th>
+            <th scope="col">Başlık</th>
+            <th scope="col">İçerik</th>
+            <th scope="col">Oluştuluma Tarihi</th>
+            <th scope="col">Kategori</th>
+            <th scope="col">İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.kulllaniciid</td>
+                <td>@item.baslik</td>
+                <td>@item.icerik</td>
+                <td>@item.olusturmatarihi</td>
+                <td>@item.kategoriid</td>
+                <td>
+
+                    <a class="btn btn-warning" asp-controller="Paylaşım" asp-action="Guncelle" asp-route-id="@item.id">Güncelle</a>
+                    <a class="btn btn-danger" asp-controller="Paylaşım" asp-action="Sil" asp-route-id="@item.id">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
