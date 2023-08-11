@@ -13,6 +13,9 @@ public class KategoriController : Controller
         _databasecontext = databasecontext;
     }
 
+
+
+
     [HttpGet]
     public IActionResult List()
     {
