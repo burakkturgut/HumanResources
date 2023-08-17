@@ -1,10 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @using HumanResources.SessionHelper
 
-
-<h3>Session Page</h3>
-
-    Username: @Context.Session.GetString("email")
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
 
 
 

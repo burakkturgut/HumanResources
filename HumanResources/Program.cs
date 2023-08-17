@@ -14,7 +14,7 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
     options.Cookie.HttpOnly = false;
     options.Cookie.Name = "benimcookiem";
     options.Cookie.IsEssential = true;
@@ -34,9 +34,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
 app.UseSession();
-
 
 app.MapControllerRoute(
     name: "default",

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HumanResources.Models;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace HumanResources.SessionHelper
@@ -15,5 +16,6 @@ namespace HumanResources.SessionHelper
             var value = session.GetString(key);
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
+     
     }
 }

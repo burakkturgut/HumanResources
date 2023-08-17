@@ -19,7 +19,6 @@ namespace HumanResources.Controllers
             {
                 return RedirectToAction("Giriş", "Kullanici");
             }
-
             return View();
         }
 
