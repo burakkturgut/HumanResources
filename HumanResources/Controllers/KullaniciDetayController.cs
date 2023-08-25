@@ -16,7 +16,7 @@ public class KullaniciDetayController : Controller
     [HttpGet]
     public IActionResult List()
     {
-        List<kullanicidetay> liste = _databasecontext.kullanıcıdetay.OrderBy(x => x.id).ToList();
+        List<kullanicidetay> liste = _databasecontext.kullanicidetay.OrderBy(x => x.id).ToList();
         return View(liste);
     }
 
@@ -29,8 +29,7 @@ public class KullaniciDetayController : Controller
     [HttpPost]
     public IActionResult Ekle(kullanicidetay model)
     {
-        model.id = 4;
-        _databasecontext.kullanıcıdetay.Add(model);
+        _databasecontext.kullanicidetay.Add(model);
         _databasecontext.SaveChanges();
 
         return RedirectToAction("List");
@@ -39,14 +38,14 @@ public class KullaniciDetayController : Controller
     [HttpGet]
     public IActionResult Guncelle(int id)
     {
-        kullanicidetay da = _databasecontext.kullanıcıdetay.Find(id);
+        kullanicidetay da = _databasecontext.kullanicidetay.Find(id);
         return View(da);
     }
 
     [HttpPost]
     public IActionResult Guncelle(kullanicidetay model)
     {
-        kullanicidetay da = _databasecontext.kullanıcıdetay.Find(model.id);
+        kullanicidetay da = _databasecontext.kullanicidetay.Find(model.id);
 
         da.id = model.id;
         da.kullaniciid = model.kullaniciid;
@@ -64,8 +63,8 @@ public class KullaniciDetayController : Controller
     [HttpGet]
     public IActionResult Sil(int id)
     {
-        kullanicidetay da = _databasecontext.kullanıcıdetay.Find(id);
-        _databasecontext.kullanıcıdetay.Remove(da);
+        kullanicidetay da = _databasecontext.kullanicidetay.Find(id);
+        _databasecontext.kullanicidetay.Remove(da);
         _databasecontext.SaveChanges();
 
         return RedirectToAction("List");

@@ -1,6 +1,17 @@
 ﻿@model paylasim
+@{
+    Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+}
+@if (TempData["RolidMesaj"] != null)
+{
 
-<form asp-controller="Paylaşım" asp-action="Guncelle" method="post">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading"><font style="vertical-align: inherit;">@TempData["RolidMesaj"].ToString()</font></h4>
+        <p><font style="vertical-align: inherit;">Eğer admin değilseniz Güncelleme yapamazsınız!</font></p>
+    </div>
+
+}
+<form asp-controller="Paylasim" asp-action="Guncelle" method="post">
     <input type="hidden" asp-for="id" />
 
     

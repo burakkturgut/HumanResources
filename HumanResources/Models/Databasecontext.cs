@@ -5,25 +5,19 @@ namespace HumanResources.Models;
 public class Databasecontext : DbContext
 {
     public DbSet<kategori> kategori { get; set; }
-    public DbSet<Kullanici> kullanıcı { get; set; }
-    public DbSet<kullanicidetay> kullanıcıdetay { get; set; }
-    public DbSet<paylasim> paylasım { get; set; }
-
+    public DbSet<kullanici> kullanici { get; set; }
+    public DbSet<kullanicidetay> kullanicidetay { get; set; }
+    public DbSet<paylasim> paylasim { get; set; }
+    public DbSet<logs> logs { get; set; }
+    public DbSet<rol> rol { get; set; }
+    public DbSet<basvuruKontrol> basvuruKontrol { get; set; }
     public Databasecontext(DbContextOptions<Databasecontext> options)
         : base(options)
     {
 
     }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder) //ovveride edilen bir ürün bir kre yazılır
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new KategoriConfiguration());
-        modelBuilder.ApplyConfiguration(new PaylaşımConfiguration());
-        modelBuilder.ApplyConfiguration(new KullaniciConfiguration());
-        modelBuilder.ApplyConfiguration(new KullaniciDetayConfiguration());
-
-
         base.OnModelCreating(modelBuilder);
     }
-    
 }

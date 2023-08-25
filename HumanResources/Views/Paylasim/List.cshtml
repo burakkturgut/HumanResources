@@ -1,8 +1,8 @@
 ﻿@model List<paylasim>
 
-<div>
-    <a asp-controller="Paylaşım" asp-action="Ekle" class="btn btn-success">Paylaşım Yap</a>
-</div>
+@{
+    Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+}
 
 <table class="table table-hover">
     <thead class="bg-dark text-white">
@@ -13,7 +13,12 @@
             <th scope="col">İçerik</th>
             <th scope="col">Oluştuluma Tarihi</th>
             <th scope="col">Kategori</th>
-            <th scope="col">İşlem</th>
+            <th scope="col">
+                <div>
+                    <a asp-controller="Paylasim" asp-action="Ekle" class="btn btn-success">Paylaşım Yap</a>
+                </div>
+            </th>
+
         </tr>
     </thead>
     <tbody>
@@ -21,17 +26,17 @@
         {
             <tr>
                 <td>@item.id</td>
-                <td>@item.kulllaniciid</td>
+                <td>@item.kullaniciid</td>
                 <td>@item.baslik</td>
                 <td>@item.icerik</td>
                 <td>@item.olusturmatarihi</td>
                 <td>@item.kategoriid</td>
                 <td>
-
-                    <a class="btn btn-warning" asp-controller="Paylaşım" asp-action="Guncelle" asp-route-id="@item.id">Güncelle</a>
-                    <a class="btn btn-danger" asp-controller="Paylaşım" asp-action="Sil" asp-route-id="@item.id">Sil</a>
+                    <a class="btn btn-warning" asp-controller="Paylasim" asp-action="Guncelle" asp-route-id="@item.id">Güncelle</a>
+                    <a class="btn btn-danger" asp-controller="Paylasim" asp-action="Sil" asp-route-id="@item.id">Sil</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+

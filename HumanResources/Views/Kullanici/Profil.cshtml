@@ -3,48 +3,34 @@
     Layout = "/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <title>Bootstrap Example</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body class="p-3 m-0 border-0 bd-example m-0 border-0">
+<form>
+    <div>
+        <h4>Kullanıcı Bilgileri</h4>
 
-
-    <form>
-        <div>
-            <h4>Kullanıcı Bilgileri</h4>
-
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">Fotoğrafınız</label>
-                <br />
-                <img src="/images/@Model.ProfilFotoğraf" / width="200" height="auto">
-                <input type="hidden" id="disabledTextInput" asp-for="ProfilFotoğraf" class="form-control" placeholder="Disabled input" disabled="">
-            </div>
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">Adınız</label>
-                <input type="text" id="disabledTextInput" asp-for="adi" class="form-control" placeholder="Disabled input" disabled="">
-            </div>
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">Soyadınız</label>
-                <input type="text" id="disabledTextInput" asp-for="soyadi" class="form-control" placeholder="Disabled input" disabled="">
-            </div>
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">Emailiniz</label>
-                <input type="text" id="disabledTextInput" asp-for="Email" class="form-control" placeholder="Disabled input" disabled="">
-            </div>
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">Şifreniz</label>
-                <input type="text" id="disabledTextInput" asp-for="sifre" class="form-control" placeholder="Disabled input" disabled="">
-            </div>
-
-            <a asp-controller="Kullanici" asp-action="Guncelle" asp-route-id="@Model.id" class="btn btn-warning">Bilgileri Güncelle</a>
+        <div class="mb-3">
+            <label for="disabledTextInput" class="form-label">Fotoğrafınız</label>
+            <br />
+            <img src="/images/@Model.profilfotograf" / width="200" height="auto">
+            <input type="hidden" id="disabledTextInput" asp-for="profilfotograf" class="form-control" placeholder="Disabled input" disabled="">
         </div>
-    </form>
-</body>
-</html>
+        <div class="mb-3">
+            <label for="disabledTextInput" class="form-label">Adınız</label>
+            <input type="text" id="disabledTextInput" asp-for="adi" class="form-control" placeholder="Disabled input" disabled="">
+        </div>
+        <div class="mb-3">
+            <label for="disabledTextInput" class="form-label">Soyadınız</label>
+            <input type="text" id="disabledTextInput" asp-for="soyadi" class="form-control" placeholder="Disabled input" disabled="">
+        </div>
+        <div class="mb-3">
+            <label for="disabledTextInput" class="form-label">Emailiniz</label>
+            <input type="text" id="disabledTextInput" asp-for="Email" class="form-control" placeholder="Disabled input" disabled="">
+        </div>
+        <div class="mb-3">
+            <label for="disabledTextInput" class="form-label">Şifreniz</label>
+            <input type="text" id="disabledTextInput" asp-for="sifre" class="form-control" placeholder="Disabled input" disabled="">
+        </div>
+
+        <a asp-controller="Kullanici" asp-action="Guncelle" asp-route-id="@Model.id" class="btn btn-warning">Bilgileri Güncelle</a>
+    </div>
+</form>
+

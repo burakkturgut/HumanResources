@@ -10,8 +10,8 @@ namespace HumanResources.Models
         public string soyadi { get; set; }
         public string sifre { get; set; }
         public string Email { get; set; }
-        public string ProfilFotoğraf { get; set; }
-        public IFormFile ProfilFotoğrafı { get; set; }
+        public string profilfotograf { get; set; }
+        public IFormFile profilfotografi { get; set; }
 
     }
 }

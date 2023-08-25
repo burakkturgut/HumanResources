@@ -3,6 +3,8 @@
 
 @{
     var user = Context.Session.GetString("email");
+    var user11 = Context.Session.GetInt32("id");
+
 
 }
 
@@ -19,30 +21,32 @@
     <link href="/Admintema/dist/css/styles.css" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <style>
-        .profil-images-settings{
+        .profil-images-settings {
             border-radius: 50%;
         }
-
+        .prf {
+            padding-left: 20px;
+            padding-top: 20px;
+        }
     </style>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        
+
         <a asp-controller="Admin" asp-action="AdminPage" class="navbar-brand ps-3">Hoşgeldiniz @Context.Session.GetString("name")</a>
 
-        
+
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        
+
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
-              
             </div>
         </form>
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/images/@Context.Session.GetString("profilImage")" alt="Profil Fotoğrafı" class="profile-image profil-images-settings" width="40" height="40"  />
+                    <img src="/images/@Context.Session.GetString("profilImage")" alt="Profil Fotoğrafı" class="profile-image profil-images-settings" width="40" height="40" />
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a asp-controller="Kullanici" asp-action="Profil" class="dropdown-item">Profil</a></li>
@@ -64,59 +68,36 @@
                             Admin Paneli
                         </a>
                         <div class="sb-sidenav-menu-heading">Arayüz</div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Tablolar
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Kullanıcı</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">KullanıcıDetay</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Paylaşım</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Kategori</a>
-                            </nav>
-                        </div>
+                        
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Pages
+                            Sayfalar
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                    Authentication
+                                    Admin Sayfaları
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
                                 <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="login.html">Login</a>
-                                        <a class="nav-link" href="register.html">Register</a>
-                                        <a class="nav-link" href="password.html">Forgot Password</a>
+                                        <a asp-controller="Kategori" asp-action="List" class="nav-link">Kategoriler</a>
+                                        <a asp-controller="Paylasim" asp-action="List" class="nav-link">Paylaşımlar</a>
+                                        <a asp-controller="Kullanici" asp-action="Guncelle" asp-route-id="@user11" class="nav-link">Bilgileri Güncelle</a>
                                     </nav>
                                 </div>
                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                    Error
+                                    Diğer Sayfalar
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
                                 <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="401.html">401 Page</a>
-                                        <a class="nav-link" href="404.html">404 Page</a>
-                                        <a class="nav-link" href="500.html">500 Page</a>
+                                        <a class="nav-link" href="https://www.bihl-wiedemann.de/tr/" target="_blank">Bihl+Wiedemann</a>
                                     </nav>
                                 </div>
                             </nav>
                         </div>
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
-                        </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
@@ -126,18 +107,13 @@
             </nav>
         </div>
         <div id="layoutSidenav_content">
-            <main>
+            <main class="prf">
                 @RenderBody()
             </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
+            <footer class="py-4 bg-light mt-auto prf-ftr">
+                <div class="container-fluid px-4 prf-ftr">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
+                        <div class="text-muted">Copyright &copy; Your Website @DateTime.Now.Year</div>
                     </div>
                 </div>
             </footer>

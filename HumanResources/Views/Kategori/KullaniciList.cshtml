@@ -1,12 +1,7 @@
 ﻿@model List<kategori>
 @{
-    Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
-
-
-<div>
-    <a asp-controller="Kategori" asp-action="Ekle" class="btn btn-success">Kategori Ekle</a>
-</div>
 <br />
 <table class="table table-hover table-striped table-bordered">
     <thead>
@@ -23,9 +18,7 @@
                 <td>@item.id</td>
                 <td>@item.kategoriadi</td>
                 <td>
-
-                    <a class="btn btn-warning" asp-controller="Kategori" asp-action="Guncelle" asp-route-id="@item.id">Güncelle</a>
-                    <a class="btn btn-danger" asp-controller="Kategori" asp-action="Sil" asp-route-id="@item.id">Sil</a>
+                    <a class="btn btn-success" asp-controller="Kategori" asp-action="KullaniciList" asp-route-id="@item.id">Başvur</a>
                 </td>
             </tr>
         }

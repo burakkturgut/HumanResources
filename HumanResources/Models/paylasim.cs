@@ -3,7 +3,7 @@
     public class paylasim
     {
         public int id { get; set; }
-        public int kulllaniciid { get; set; }
+        public int kullaniciid { get; set; }
         public string baslik { get; set; }
         public string icerik { get; set; }
         public string olusturmatarihi { get; set; }

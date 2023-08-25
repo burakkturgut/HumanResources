@@ -1,5 +1,6 @@
 ﻿using HumanResources.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,6 +11,7 @@ namespace HumanResources.Controllers;
 public class KullaniciController : Controller
 {
     private readonly Databasecontext _databasecontext;
+    private logs _log; //newkedik
     public KullaniciController(Databasecontext databasecontext)
     {
         _databasecontext = databasecontext;
@@ -18,7 +20,8 @@ public class KullaniciController : Controller
     [HttpGet]
     public IActionResult List()
     {
-        List<Kullanici> liste = _databasecontext.kullanıcı.OrderBy(x => x.id).ToList();
+        List<kullanici> liste = _databasecontext.kullanici.OrderBy(x => x.id).ToList();
+        LogKullanimi("Kullanici", "list", "listeleme oldu");
         return View(liste);
     }
 
@@ -29,19 +32,20 @@ public class KullaniciController : Controller
     }
 
     [HttpPost]
-    public IActionResult Ekle(Kullanici model)
+    public IActionResult Ekle(kullanici model)
     {
         model.id = 4;
-        _databasecontext.kullanıcı.Add(model);
+        _databasecontext.kullanici.Add(model);
         _databasecontext.SaveChanges();
 
+        LogKullanimi("Kullanici", "ekle", "ekleme oldu");
         return RedirectToAction("List");
     }
 
     [HttpGet]
     public IActionResult Guncelle(int id)
     {
-        Kullanici za = _databasecontext.kullanıcı.Find(id);
+        kullanici za = _databasecontext.kullanici.Find(id);
         KullaniciViewModel model = new()
         {
             adi = za.adi,
@@ -56,7 +60,7 @@ public class KullaniciController : Controller
     [HttpPost]
     public IActionResult Guncelle(KullaniciViewModel model, IFormFile myfile)
     {
-        Kullanici za = _databasecontext.kullanıcı.Find(model.id);
+        kullanici za = _databasecontext.kullanici.Find(model.id);
 
         za.adi = model.adi;
         za.soyadi = model.soyadi;
@@ -64,10 +68,8 @@ public class KullaniciController : Controller
 
         string uniqueFileName = UploadedFile(model, myfile);
 
-        za.ProfilFotoğrafı = uniqueFileName;
-
-        _databasecontext.SaveChanges();
-
+        za.profilfotografi = uniqueFileName;
+        LogKullanimi("Kullanici", "Guncelle", "Kullanici güncellemesi oldu");
         return RedirectToAction("Profil", "Kullanici");
     }
 
@@ -91,10 +93,9 @@ public class KullaniciController : Controller
     [HttpGet]
     public IActionResult Sil(int id)
     {
-        Kullanici za = _databasecontext.kullanıcı.Find(id);
-        _databasecontext.kullanıcı.Remove(za);
-        _databasecontext.SaveChanges();
-
+        kullanici za = _databasecontext.kullanici.Find(id);
+        _databasecontext.kullanici.Remove(za);
+        LogKullanimi("Kullanici", "sil", "kullanici silme işlemi gerçekleşti");
         return RedirectToAction("List");
     }
 
@@ -104,40 +105,44 @@ public class KullaniciController : Controller
         return View();
     }
     [HttpPost]
-    public async Task<IActionResult> Giriş(Kullanici model)
+    public async Task<IActionResult> Giriş(kullanici model)
     {
 
-        var sorgu = await _databasecontext.kullanıcı.FirstOrDefaultAsync(x => x.Email == model.Email && x.sifre == model.sifre);
-
-
-        if (sorgu != null)
+        if (ModelState.IsValid)
         {
 
-            //session 
-            HttpContext.Session.SetString("email", sorgu.Email);//view
-            HttpContext.Session.SetString("name", sorgu.adi);//view
-            HttpContext.Session.SetInt32("id", sorgu.id);//view
-            HttpContext.Session.SetString("profilImage", sorgu.ProfilFotoğrafı);//view
+            var sorgu = await _databasecontext.kullanici.FirstOrDefaultAsync(x => x.Email == model.Email && x.sifre == model.sifre);
 
-            var email = HttpContext.Session.GetString("email");
-            var userid = HttpContext.Session.GetInt32("id");
-
-
-            if (userid == 1)
+            if (sorgu != null)
             {
-                return RedirectToAction("AdminPage", "Admin");
+                //session 
+                HttpContext.Session.SetString("email", sorgu.Email);//view
+                HttpContext.Session.SetString("name", sorgu.adi);//view
+                HttpContext.Session.SetInt32("id", sorgu.id);//view
+                HttpContext.Session.SetString("profilImage", sorgu.profilfotografi);//view
+                HttpContext.Session.SetInt32("rolid", sorgu.rolid);//view
+
+                var email = HttpContext.Session.GetString("email");
+                var userid = HttpContext.Session.GetInt32("id");
+
+                if (sorgu.rolid == 1)
+                {
+                    LogKullanimi("Kullanici", "Giriş", "Admin sayfasına giriş oldu");
+                    return RedirectToAction("AdminPage", "Admin");
+                }
+                LogKullanimi("Kullanici", "Giriş", "Kullanici sayfasına giriş oldu");
+                // Kullanıcı doğrulandı
+                return RedirectToAction("Anasayfa", "Home"); // eğer doğruysa Home controllına gidicek anasayfa viewine gecicek
             }
-
-            // Kullanıcı doğrulandı
-            return RedirectToAction("Anasayfa", "Home"); // eğer doğruysa Home controllına gidicek anasayfa viewine gecicek
+            else
+            {
+                LogKullanimi("Kullanici", "Giriş", "Hatalı giriş denemesi");
+                // Kullanıcı doğrulanamadı
+                return RedirectToAction("Giris", "Home");
+            }
         }
-        else
-        {
-            // Kullanıcı doğrulanamadı
-            return RedirectToAction("Giris", "Home");
-        }
+        return View(model);
     }
-
 
     [HttpGet]
     public IActionResult KayıtOl()
@@ -146,34 +151,32 @@ public class KullaniciController : Controller
     }
 
     [HttpPost]
-    public IActionResult KayıtOl(Kullanici model)
+    public IActionResult KayıtOl(kullanici model)
     {
 
-
-        // Kullanıcıyı veritabanında arayın
-        Kullanici existingUser = _databasecontext.kullanıcı.FirstOrDefault(u => u.Email == model.Email);
-
-        // Eğer kullanıcı yoksa, yeni bir kullanıcı oluşturun
-        if (existingUser == null)
+        if (ModelState.IsValid)
         {
-            int userId = _databasecontext.kullanıcı.OrderByDescending(x => x.id).FirstOrDefault().id;
-            userId += 1;
+            // Kullanıcıyı veritabanında arayın
+            kullanici existingUser = _databasecontext.kullanici.FirstOrDefault(u => u.Email == model.Email);
 
-            Kullanici kullanici = new()
+            // Eğer kullanıcı yoksa, yeni bir kullanıcı oluşturun
+            if (existingUser == null)
             {
-                id = userId,
-                adi = model.adi,
-                Email = model.Email,
-                sifre = model.sifre,
-                soyadi = model.soyadi
-            };
-            //kullanici.ProfilFotoğrafı= 
+                int userId = _databasecontext.kullanici.OrderByDescending(x => x.id).FirstOrDefault().id;
 
-            _databasecontext.kullanıcı.Add(kullanici);
-
-            // Değişiklikleri kaydet
-            _databasecontext.SaveChanges();
-
+                kullanici kullanici = new()
+                { 
+                    adi = model.adi,
+                    Email = model.Email,
+                    sifre = model.sifre,
+                    soyadi = model.soyadi,
+                    rolid = 2,
+                    profilfotografi = "/images/default.jpg"
+                };
+                _databasecontext.kullanici.Add(kullanici);
+                LogKullanimi("Kullanici", "KayıtOl", "Yeni Kayıt oluştu");
+                return RedirectToAction("Giriş", "Kullanici"); // Başka bir sayfaya yönlendirme
+            }
             return RedirectToAction("Giriş", "Kullanici"); // Başka bir sayfaya yönlendirme
         }
         return View(model);
@@ -181,9 +184,9 @@ public class KullaniciController : Controller
 
     [HttpGet]
     public IActionResult Profil()
-    {       
+    {
         var userid = HttpContext.Session.GetInt32("id");
-        var getuser = _databasecontext.kullanıcı.Find(userid);
+        var getuser = _databasecontext.kullanici.Find(userid);
 
         KullaniciViewModel model = new()
         {
@@ -192,15 +195,16 @@ public class KullaniciController : Controller
             sifre = getuser.sifre,
             Email = getuser.Email,
             soyadi = getuser.soyadi,
-            ProfilFotoğraf = getuser.ProfilFotoğrafı
+            profilfotograf = getuser.profilfotografi
         };
+        LogKullanimi("Kullanici", "Profil", "Profil ekranına gidildi");
         return View(model);
     }
 
     [HttpGet]
     public IActionResult KulaniciGuncelle(int id)
     {
-        Kullanici za = _databasecontext.kullanıcı.Find(id);
+        kullanici za = _databasecontext.kullanici.Find(id);
         KullaniciViewModel model = new()
         {
             adi = za.adi,
@@ -215,7 +219,7 @@ public class KullaniciController : Controller
     [HttpPost]
     public IActionResult KulaniciGuncelle(KullaniciViewModel model, IFormFile myfile)
     {
-        Kullanici za = _databasecontext.kullanıcı.Find(model.id);
+        kullanici za = _databasecontext.kullanici.Find(model.id);
 
         za.adi = model.adi;
         za.soyadi = model.soyadi;
@@ -223,11 +227,9 @@ public class KullaniciController : Controller
 
         string uniqueFileName = UserUploadedFile(model, myfile);
 
-        za.ProfilFotoğrafı = uniqueFileName;
-
-        _databasecontext.SaveChanges();
-
-        return RedirectToAction("Profil", "Kullanici");
+        za.profilfotografi = uniqueFileName;
+        LogKullanimi("Kullanici", "KullaniciGuncelle", "Kullanici Güncelleme Yaptı");
+        return RedirectToAction("KullaniciProfil", "Kullanici");
     }
 
     private string UserUploadedFile(KullaniciViewModel Model, IFormFile myfile_)
@@ -251,7 +253,7 @@ public class KullaniciController : Controller
     public IActionResult KullaniciProfil()
     {
         var userid = HttpContext.Session.GetInt32("id");
-        var getuser = _databasecontext.kullanıcı.Find(userid);
+        var getuser = _databasecontext.kullanici.Find(userid);
 
         KullaniciViewModel model = new()
         {
@@ -260,10 +262,20 @@ public class KullaniciController : Controller
             sifre = getuser.sifre,
             Email = getuser.Email,
             soyadi = getuser.soyadi,
-            ProfilFotoğraf = getuser.ProfilFotoğrafı
+            profilfotograf = getuser.profilfotografi
         };
+        LogKullanimi("Kullanici", "KullaniciProfil", "Listeleme çağrıldı");
         return View(model);
     }
 
-
+    public void LogKullanimi(string kontroller, string action, string msj)
+    {
+        _log = new logs();
+        _log.olusturmatarihi = DateTime.UtcNow.ToString();
+        _log.controllername = kontroller;
+        _log.actionname = action;
+        _log.mesaj = msj;
+        _databasecontext.logs.Add(_log);
+        _databasecontext.SaveChanges();
+    }
 }

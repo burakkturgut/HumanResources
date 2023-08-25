@@ -1,8 +1,8 @@
 ﻿namespace HumanResources.Models
 {
-    public class kategori
+    public class rol
     {
         public int id { get; set; }
-        public string kategoriadi { get; set; }
+        public string adi { get; set; }
     }
 }

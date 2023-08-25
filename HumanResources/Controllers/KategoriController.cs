@@ -12,10 +12,6 @@ public class KategoriController : Controller
     {
         _databasecontext = databasecontext;
     }
-
-
-
-
     [HttpGet]
     public IActionResult List()
     {
@@ -26,7 +22,14 @@ public class KategoriController : Controller
     [HttpGet]
     public IActionResult Ekle()
     {
-        return View();
+        var rolid = HttpContext.Session.GetInt32("rolid");
+        if (rolid == 1)
+        {
+            return View();
+
+        }
+        TempData["RolidMesaj"] = "Yetkiniz yoktur";
+        return RedirectToAction("List");
     }
 
     [HttpPost]
@@ -42,8 +45,14 @@ public class KategoriController : Controller
     [HttpGet]
     public IActionResult Guncelle(int id)
     {
-        kategori ka = _databasecontext.kategori.Find(id);
-        return View(ka);
+        var rolid = HttpContext.Session.GetInt32("rolid");
+        if (rolid == 1)
+        {
+            kategori ka = _databasecontext.kategori.Find(id);
+            return View(ka);
+        }
+        TempData["RolidMesaj"] = "Yetkiniz yoktur";
+        return RedirectToAction("List");
     }
 
     [HttpPost]
@@ -61,10 +70,78 @@ public class KategoriController : Controller
     [HttpGet]
     public IActionResult Sil(int id)
     {
+        var rolid = HttpContext.Session.GetInt32("rolid");
+        if (rolid == 1)
+        {
+            kategori ka = _databasecontext.kategori.Find(id);
+            _databasecontext.kategori.Remove(ka);
+            _databasecontext.SaveChanges();
+        }
+        TempData["RolidMesaj"] = "Yetkiniz yoktur";
+        return RedirectToAction("List");
+
+    }
+    public IActionResult KullaniciList()
+    {
+        List<kategori> liste = _databasecontext.kategori.OrderBy(x => x.id).ToList();
+        return View(liste);
+    }
+
+    [HttpGet]
+    public IActionResult KullaniciEkle()
+    {
+        var rolid = HttpContext.Session.GetInt32("rolid");
+        if (rolid == 1)
+        {
+            return View();
+
+        }
+        TempData["RolidMesaj"] = "Yetkiniz yoktur";
+        return RedirectToAction("KullaniciList");
+    }
+
+
+    [HttpPost]
+    public IActionResult KullaniciEkle(kategori model)
+    {
+        model.id = 4;
+        _databasecontext.kategori.Add(model);
+        _databasecontext.SaveChanges();
+
+        return RedirectToAction("KullaniciList");
+    }
+
+    [HttpGet]
+    public IActionResult KullaniciGuncelle(int id)
+    {
+        var rolid = HttpContext.Session.GetInt32("rolid");
+        if (rolid == 1)
+        {
+            kategori ka = _databasecontext.kategori.Find(id);
+            return View(ka);
+        }
+        TempData["RolidMesaj"] = "Yetkiniz yoktur";
+        return RedirectToAction("KullaniciList");
+    }
+
+    [HttpPost]
+    public IActionResult KullaniciGuncelle(kategori model)
+    {
+        kategori ka = _databasecontext.kategori.Find(model.id);
+
+        ka.kategoriadi = model.kategoriadi;
+
+        _databasecontext.SaveChanges();
+
+        return RedirectToAction("KullaniciList");
+    }
+
+    [HttpGet]
+    public IActionResult KullaniciSil(int id)
+    {
         kategori ka = _databasecontext.kategori.Find(id);
         _databasecontext.kategori.Remove(ka);
         _databasecontext.SaveChanges();
-
-        return RedirectToAction("List");
+        return RedirectToAction("KullaniciList");
     }
 }

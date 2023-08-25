@@ -4,8 +4,6 @@
 @{
     var user = Context.Session.GetString("email");
     var user1 = Context.Session.GetInt32("id");
-
-
 }
 
 <!DOCTYPE html>
@@ -35,6 +33,9 @@
         .google-browser {
             background-color: skyblue;
         }
+        .prof{
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -59,7 +60,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a asp-controller="Home" asp-action="Anasayfa" class="nav-link">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Kullanıcı Paneli</span>
                 </a>
@@ -82,9 +83,11 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Giriş Ekranı</h6>
-                        <a asp-controller="Home" asp-action="Anasayfa" class="collapse-item">Giriş</a>
-                        <a asp-controller="Kullanici" asp-action="Profil" class="collapse-item">Profil</a>
+                        <h6 class="collapse-header">Kullanıcı Sayfaları</h6>                  
+                        <a asp-controller="Kategori" asp-action="KullaniciList" class="collapse-item">Kategoriler</a>
+                        <a asp-controller="Paylasim" asp-action="KullaniciList" class="collapse-item">Paylaşımlar</a>
+                        <a asp-controller="Paylasim" asp-action="KullaniciBasvuruList" class="collapse-item">Başvurularım</a>
+
                         <a asp-controller="Kullanici" asp-action="KulaniciGuncelle" class="collapse-item" asp-route-id="@user1">Bilgileri Güncelle</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Diğer Sayfalar</h6>
@@ -95,29 +98,10 @@
             </li>
 
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                   aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Grafikler</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                     data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Grafik Türleri</h6>
-                        <a class="collapse-item">Çalışma Günleriniz</a>
-                        <a class="collapse-item">Maaş Grafiğiniz</a>
-                        <a class="collapse-item">Performans Grafiğiniz </a>
-                    </div>
-                </div>
-            </li>
-
-
-
+           
+            
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
-
         </ul>
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
@@ -171,22 +155,18 @@
                                 </form>
                             </div>
                         </li>
-
-                        <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
                                 <span class="badge badge-danger badge-counter">3+</span>
                             </a>
-                            <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Bildirimler
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                </h6> 
+                                <a class="dropdown-item d-flex align-items-center">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-primary">
                                             <i class="fas fa-file-alt text-white"></i>
@@ -197,7 +177,7 @@
                                         <span class="font-weight-bold">Ağustos Ayı Çalışma Günleri</span>
                                     </div>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-success">
                                             <i class="fas fa-donate text-white"></i>
@@ -208,7 +188,7 @@
                                         Hesabınıza 30,000 Tl yatırıldı!
                                     </div>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center" asp-controller="Kullanici" asp-action="KulaniciGuncelle">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-danger">
                                             <i class="fas fa-exclamation-triangle text-white"></i>
@@ -233,7 +213,7 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     @Context.Session.GetString("name")
                                 </span>
-                                <img class="profile-image" src="/images/@Context.Session.GetString("profilImage")" width="40" height="40">
+                                <img class="profile-image prof" src="@Context.Session.GetString("profilImage")" width="40" height="40">
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

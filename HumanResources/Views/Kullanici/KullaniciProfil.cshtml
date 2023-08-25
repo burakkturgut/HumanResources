@@ -9,8 +9,8 @@
         <div class="mb-3">
             <label for="disabledTextInput" class="form-label">Fotoğrafınız</label>
             <br />
-            <img src="/images/@Model.ProfilFotoğraf" width="200" height="auto" />
-            <input type="hidden" id="disabledTextInput" asp-for="ProfilFotoğraf" class="form-control" placeholder="Disabled input" disabled="">
+            <img src="/images/@Model.profilfotograf" width="200" height="auto" />
+            <input type="hidden" id="disabledTextInput" asp-for="profilfotograf" class="form-control" placeholder="Disabled input" disabled="">
         </div>
         <div class="mb-3">
             <label for="disabledTextInput" class="form-label">Adınız</label>
@@ -29,6 +29,6 @@
             <input type="text" id="disabledTextInput" asp-for="sifre" class="form-control" placeholder="Disabled input" disabled="">
         </div>
 
-        <a asp-controller="Kullanici" asp-action="Guncelle" asp-route-id="@Model.id" class="btn btn-warning">Bilgileri Güncelle</a>
+        <a asp-controller="Kullanici" asp-action="KulaniciGuncelle" asp-route-id="@Model.id" class="btn btn-warning">Bilgileri Güncelle</a>
     </div>
 </form>

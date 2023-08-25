@@ -1,4 +1,4 @@
-﻿@model Kullanici
+﻿@model kullanici
 
 @{
     Layout = "/Views/Shared/_LayoutLogin.cshtml";
@@ -9,10 +9,12 @@
     <div class="form-floating mb-3">
         <input type="email" class="form-control" id="floatingInput" asp-for="Email" placeholder="name@example.com">
         <label for="floatingInput">Email Adres</label>
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="form-floating mb-3">
         <input type="password" class="form-control" id="floatingPassword" asp-for="sifre" placeholder="Password">
         <label for="floatingPassword">Şifre</label>
+        <span asp-validation-for="sifre" class="text-danger"></span>
     </div>
 
     <div class="d-grid">
@@ -28,5 +30,4 @@
             Kayıt Ol
         </a>
     </div>
-
 </form>

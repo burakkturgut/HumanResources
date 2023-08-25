@@ -1,6 +1,6 @@
 ﻿@model kategori
 @{
-    Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
 @if (TempData["RolidMesaj"] != null)
 {
@@ -13,7 +13,7 @@
 }
 
 
-<form asp-controller="Kategori" asp-action="Guncelle" method="post">
+<form asp-controller="Kategori" asp-action="KullaniciGuncelle" method="post">
     <input type="hidden" asp-for="id" />
     <div class="mb-3">
         <label class="form-label">Kategori adı</label>

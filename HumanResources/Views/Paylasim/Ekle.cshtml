@@ -1,6 +1,17 @@
 ﻿@model paylasim
+@{
+    Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+}
+@if (TempData["RolidMesaj"] != null)
+{
 
-<form asp-controller="Paylaşım" asp-action="Ekle" method="post">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading"><font style="vertical-align: inherit;">@TempData["RolidMesaj"].ToString()</font></h4>
+        <p><font style="vertical-align: inherit;">Eğer admin değilseniz Paylaşım yapamazsınız!</font></p>
+    </div>
+
+}
+<form asp-controller="Paylasim" asp-action="Ekle" method="post">
     <div class="mb-3">
         <label class="form-label">Başlık Adı</label>
         <input asp-for="baslik" class="form-control" placeholder="Başlığınızı giriniz..">
@@ -8,10 +19,6 @@
     <div class="mb-3">
         <label class="form-label">İçerik Adı</label>
         <input asp-for="icerik" class="form-control" placeholder="İçeriğinizi giriniz..">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Oluşturma Tarihi</label>
-        <input asp-for="olusturmatarihi" class="form-control" placeholder="GG.AA.YY">
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-success">İçeriği Ekle</button>

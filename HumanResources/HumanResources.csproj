@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Admintema\css\**" />
+    <Content Remove="wwwroot\Admintema\css\**" />
+    <EmbeddedResource Remove="wwwroot\Admintema\css\**" />
+    <None Remove="wwwroot\Admintema\css\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.21">
       <PrivateAssets>all</PrivateAssets>
@@ -19,10 +26,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Npgsql" Version="6.0.9" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.8" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>

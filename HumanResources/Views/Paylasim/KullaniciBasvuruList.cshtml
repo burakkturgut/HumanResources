@@ -1,0 +1,32 @@
+﻿@model List<BasvuruViewModel>
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<div class="my-5">
+    <div class="table-response">
+        <table class="table table-hover table-bordered table-striped">
+            <thead class="bg-dark text-white text-center">
+                <tr>
+                    <th>adi</th>
+                    <th>soyadi</th>
+                    <th>baslik</th>
+                    <th>icerik</th>
+                    <th>olusturmatarihi</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td> @item.adi </td>
+                        <td> @item.soyadi </td>
+                        <td> @item.baslik </td>
+                        <td> @item.icerik </td>
+                        <td> @item.olusturmatarihi </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
